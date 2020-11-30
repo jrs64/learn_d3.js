@@ -9,7 +9,7 @@ export default () => (
       {
         key: 'github',
         title: <GithubOutlined />,
-        href: 'https://github.com/jrs64/D3_demo',
+        href: 'https://github.com/jrs64/learn_d3.js',
         blankTarget: true,
       }
     ]}
