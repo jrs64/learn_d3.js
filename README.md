@@ -24,9 +24,15 @@ yarn
 ### Start project
 
 ```bash
-yarn
 yarn dev
 ```
+
+or
+
+```bash
+npm run dev
+```
+
 
 ### Build project
 
