@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useRef } from 'react';
 import { select, scaleBand, range, scaleLinear, max, axisBottom, axisLeft } from 'd3';
 import { getBasicBarData, BasicBarData } from '@/services/bar';
+import styles from '../index.less';
 
 const color = 'steelblue';
 
@@ -20,8 +21,19 @@ const BarDom: FC<PropsType> = (props) => {
   const { height = 500, width = 950 } = props;
   const bar = useRef(null);
 
+  const showToolTip = (event: any, data: { name: string; value: number; }) => {
+    select('.tooltip')
+      .style('opacity', 1)
+      .style('top', `${event.offsetY - 10}px`)
+      .style('left', `${event.offsetX + 10}px`)
+      .html(
+        `<div>${data.name}: ${data.value}</div>`
+      );
+  }
+
   const init = (data: BasicBarData['data']) => {
     const chart = select(bar.current);
+    const tooltip = select('.tooltip');
 
     const Xaxis = scaleBand<number>()
       .domain(range(data.length))
@@ -41,7 +53,17 @@ const BarDom: FC<PropsType> = (props) => {
       .attr('x', (d, i) => Xaxis(i) as number)
       .attr('y', d => Yaxis(d.value))
       .attr("height", d => Yaxis(0) - Yaxis(d.value))
-      .attr("width", Xaxis.bandwidth());
+      .attr("width", Xaxis.bandwidth())
+      .on('mouseover', () => {
+        tooltip.style('opacity', 1)
+      })
+      .on('mousemove', showToolTip)
+      .on('mouseleave', () => {
+        tooltip
+          .transition()
+          .duration(100)
+          .style('opacity', 0)
+      });
 
     chart.append('g').call(
       (g) => g.attr('transform', `translate(0,${height - margin.bottom})`)
@@ -60,7 +82,6 @@ const BarDom: FC<PropsType> = (props) => {
         .text('Frequency')
       ) 
     );
-
   };
 
   const getData = async() => {
@@ -73,7 +94,10 @@ const BarDom: FC<PropsType> = (props) => {
   }, []);
 
   return (
-    <svg ref={bar} style={{ width: '100%', height: '100%' }} viewBox={`0 0 ${width} ${height}`} />
+    <div className={styles.basicBar}>
+      <svg ref={bar} style={{ width, height }} viewBox={`0 0 ${width} ${height}`} />
+      <div className={`tooltip ${styles.tooltip}`} />
+    </div>
   );
 };
 

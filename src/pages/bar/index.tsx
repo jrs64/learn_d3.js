@@ -7,8 +7,8 @@ interface BarProps {}
 const Bar: FC<BarProps> = (props) => {
 
   return (
-    <div className={styles['bar-chart']}>
-      <div className={styles['svg-dom']}>
+    <div className={styles.barChart}>
+      <div className={styles.svgDom}>
         <p>svg 操作dom版本</p>
         <div style={{ height: 600 }}>
           <BarDom />

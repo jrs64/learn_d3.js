@@ -48,4 +48,7 @@ export default defineConfig({
     type: 'hash',
   },
   exportStatic: {},
+  cssLoader: {
+    localsConvention: 'camelCase'
+  }
 });
