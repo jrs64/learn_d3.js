@@ -8,7 +8,7 @@ const Bar: FC<BarProps> = () => {
   return (
     <div className={styles.barChart}>
       <div className={styles.svgDom}>
-        <p>svg 操作dom版本11111</p>
+        <p>svg 操作dom版本</p>
         <div style={{ height: 600 }}>
           <BarDom />
         </div>
