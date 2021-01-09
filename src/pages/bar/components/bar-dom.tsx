@@ -89,8 +89,8 @@ const BarDom: FC<PropsType> = (props) => {
     chart.append('g').call((g) =>
       g
         .attr('transform', `translate(${margin.left}, 0)`)
-        .call(axisLeft(yScale).ticks(null, null))
-        .call((line) => line.select('.domain').remove())
+        .call(axisLeft(yScale).ticks(10))
+        .call((line) => line.select('.domain').remove()) // 移除Y轴坐标线
         .call((text) =>
           text
             .append('text')
